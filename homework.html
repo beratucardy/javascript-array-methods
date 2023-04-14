@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        margin-top: 0.5rem;
+      }
+      #city {
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" id="city"/><button id="add">
+      Add
+    </button>
+    <div class="container">
+      <button id="sort">Sort</button>
+      <button id="reverse">Reverse</button>
+      <button id="removeLast">Remove Last</button>
+      <button id="removeFirst">Remove First</button>
+      <button id="removeAll">Remove All</button>
+      <button id="mix">Mix</button>
+    </div>
+    <nav>
+      <ul class="cities"></ul>
+    </nav>
+    <script>
+      let arr = ["Ankara", "Istanbul", "İzmir"];
+      const add = document.querySelector("#add");
+      const city = document.querySelector("#city");
+      const cities = document.querySelector(".cities");
+      const sort = document.querySelector("#sort");
+      const reverse = document.querySelector("#reverse");
+      const removeLast = document.querySelector("#removeLast");
+      const removeFirst = document.querySelector("#removeFirst");
+      const removeAll = document.querySelector("#removeAll");
+      const mix = document.querySelector("#mix");
+      city.focus();
+      for (let i in arr) cities.innerHTML += `<li>${arr[i]}</li>`;
+      city.addEventListener("keyup",function(e) {
+        if (e.keyCode === 13) addDependant();
+      })
+      const addDependant = () => {
+        addF(city.value, arr);
+        city.focus();
+        city.value = "";
+      };
+      const sortDependant = () => {
+        sortF(arr);
+        cities.innerHTML = "";
+        for (let i in arr) cities.innerHTML += `<li>${arr[i]}</li>`;
+        city.focus();
+      };
+      const reverseDependant = () => {
+        reverseF(arr);
+        cities.innerHTML = "";
+        for (let i in arr) cities.innerHTML += `<li>${arr[i]}</li>`;
+        city.focus();
+      };
+      const removeLastDependant = () => {
+        removeLastF(arr);
+        cities.innerHTML = "";
+        for (let i in arr) cities.innerHTML += `<li>${arr[i]}</li>`;
+        city.focus();
+      };
+      const removeFirstDependant = () => {
+        removeFirstF(arr);
+        cities.innerHTML = "";
+        for (let i in arr) cities.innerHTML += `<li>${arr[i]}</li>`;
+        city.focus();
+      };
+      const removeAllDependant = () => {
+        arr = removeAllF(arr);
+        cities.innerHTML = "";
+        for (let i in arr) cities.innerHTML += `<li>${arr[i]}</li>`;
+        city.focus();
+      };
+      const mixDependant = () => {
+        arr = mixF(arr);
+        cities.innerHTML = "";
+        for (let i in arr) cities.innerHTML += `<li>${arr[i]}</li>`;
+        city.focus();
+      };
+      add.addEventListener("click", addDependant);
+      sort.addEventListener("click", sortDependant);
+      reverse.addEventListener("click", reverseDependant);
+      removeLast.addEventListener("click", removeLastDependant);
+      removeFirst.addEventListener("click", removeFirstDependant);
+      removeAll.addEventListener("click", removeAllDependant);
+      mix.addEventListener("click", mixDependant);
+      const addF = (cityAdd, array) => {
+        if (
+          !cityAdd ||
+          !isNaN(cityAdd) ||
+          cityAdd == "undefined" ||
+          cityAdd == "null"
+        )
+          return alert("Please enter a valid city");
+        for (let item of array) {
+          if (cityAdd == item) {
+            return alert("Please enter a different city");
+          }
+        }
+        array.push(cityAdd);
+        cities.innerHTML += `<li>${cityAdd}</li>`;
+        return array;
+      };
+      const sortF = (array) => {
+        array.sort();
+        return array;
+      };
+      const reverseF = (array) => {
+        array.reverse();
+        return array;
+      };
+      const removeLastF = (array) => {
+        array.pop();
+        return array;
+      };
+      const removeFirstF = (array) => {
+        array.shift();
+        return array;
+      };
+      const removeAllF = (array) => {
+        array = [];
+        return array;
+      };
+      const mixF = (array) => {
+        array.sort(() => Math.random() - 0.5);
+        return array;
+      };
+    </script>
+  </body>
+</html>
